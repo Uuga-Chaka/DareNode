@@ -2,7 +2,7 @@ import mongoose, { Schema } from "mongoose";
 
 const userRoles = ["USER", "SUPER_ADMIN"];
 
-const userSchema = new Schema<UserEntity>({
+const userSchema = new Schema({
   name: { type: String, required: [true, "Name is required"] },
   birthday: { type: Date, required: [true, "Birthday is required"] },
   createdAt: { type: Date, required: [true, "Created is required"] },
