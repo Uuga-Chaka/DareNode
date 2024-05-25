@@ -1,18 +1,28 @@
-import mongoose, { Schema } from "mongoose";
+import { Document, Model, Schema, model } from 'mongoose'
 
-const userRoles = ["USER", "SUPER_ADMIN"];
+export const userRoles = ['USER', 'SUPER_ADMIN'] as const
 
-const userSchema = new Schema({
-  name: { type: String, required: [true, "Name is required"] },
-  birthday: { type: Date, required: [true, "Birthday is required"] },
-  createdAt: { type: Date, required: [true, "Created is required"] },
-  userTimeZone: {
-    type: String,
-    required: [true, "User timezone is required"],
+export type UserRole = (typeof userRoles)[number]
+
+export interface IUserSchema extends Document {
+  birthdate: number
+  email: string
+  name: string
+  password: string | number
+  photo?: string
+  role?: UserRole
+}
+
+const userSchema = new Schema<IUserSchema>(
+  {
+    birthdate: { type: Number },
+    email: { type: String, required: [true, 'Email is required'] },
+    name: { type: String, required: [true, 'Name is required'] },
+    password: { type: Schema.Types.Mixed, required: [true, 'password is required'] },
+    photo: { type: String },
+    role: { type: Schema.Types.Mixed, default: userRoles[0], enum: userRoles, required: true },
   },
-  email: { type: String, required: [true, "Email is required"] },
-  role: { type: [String], default: userRoles[0], enum: userRoles },
-  photo: String,
-});
+  { timestamps: true }
+)
 
-export const UserModel = mongoose.model("User", userSchema);
+export const UserModel: Model<IUserSchema> = model<IUserSchema>('User', userSchema)

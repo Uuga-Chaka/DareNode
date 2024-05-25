@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 export const envs = {
   DB_USER: process.env.DB_USERNAME!,
   DB_PASSWORD: process.env.DB_PASSWORD!,

@@ -1,8 +1,8 @@
-import { FastifyInstance, FastifyPluginOptions } from "fastify";
-import { AuthRoutes } from "./auth/routes";
+import { FastifyInstance } from 'fastify'
+import { AuthRoutes } from './auth/routes'
 
 export class Routes {
-  static async all(fastify: FastifyInstance, options: FastifyPluginOptions) {
-    fastify.register(AuthRoutes.get);
+  static all = async (fastify: FastifyInstance) => {
+    await fastify.register(AuthRoutes.get)
   }
 }

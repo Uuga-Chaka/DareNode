@@ -9,4 +9,4 @@ const challengeSchema = new Schema({
   dislikes: Number,
 });
 
-const ChallengeModel = mongoose.model("Challenge", challengeSchema);
+export const ChallengeModel = mongoose.model("Challenge", challengeSchema);
