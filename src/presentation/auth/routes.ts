@@ -15,10 +15,10 @@ const registerUserSchema: FastifySchema = {
 }
 
 export class AuthRoutes {
-  static get = async (fastify: FastifyInstance) => {
+  static get = async (app: FastifyInstance) => {
     const datasource = new AuthDataSourceImp()
     const repository = new AuthRepositoryImp(datasource)
     const controller = new AuthController(repository)
-    fastify.post('/register', { schema: registerUserSchema }, controller.register)
+    app.post('/register', { schema: registerUserSchema }, controller.register)
   }
 }
