@@ -1,4 +1,4 @@
-import { FastifyReply } from 'fastify'
+import { FastifyReply, FastifyRequest } from 'fastify'
 import { AuthRepository } from '../../domain/repositories'
 import { RegisterUserDTO } from '../../domain/dtos'
 import { RegisterRequest } from '../../domain/requestTypes/auth.requestTypes'
@@ -16,5 +16,9 @@ export class AuthController {
     const [error, registerUserDTO] = RegisterUserDTO.create(req.body)
     if (error) return rep.status(400).send({ error })
     return this.authRepository.register(registerUserDTO!)
+  }
+
+  getUsers = async (req: FastifyRequest, rep: FastifyReply) => {
+    return this.authRepository.getUsers()
   }
 }

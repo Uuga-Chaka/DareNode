@@ -7,11 +7,15 @@ const registerUser = {
   name: { type: 'string' },
   email: { type: 'string' },
   password: { type: 'string' },
-  repeatedPassword: { type: 'string' },
+  repeatPassword: { type: 'string' },
 }
 
 const registerUserSchema: FastifySchema = {
-  body: { type: 'object', properties: registerUser, required: ['name', 'email'] },
+  body: {
+    type: 'object',
+    properties: registerUser,
+    required: ['name', 'email', 'password', 'repeatPassword'],
+  },
 }
 
 export class AuthRoutes {
@@ -20,5 +24,6 @@ export class AuthRoutes {
     const repository = new AuthRepositoryImp(datasource)
     const controller = new AuthController(repository)
     app.post('/register', { schema: registerUserSchema }, controller.register)
+    app.get('/get-users', controller.getUsers)
   }
 }
